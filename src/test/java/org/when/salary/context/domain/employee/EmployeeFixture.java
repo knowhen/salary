@@ -6,6 +6,7 @@ import org.when.salary.context.domain.Money;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class EmployeeFixture {
@@ -33,5 +34,39 @@ public class EmployeeFixture {
         timeCards.add(timeCard4);
         timeCards.add(timeCard5);
         return timeCards;
+    }
+
+    public static SalariedEmployee createSalariedEmployee(String employeeId, Money monthlySalary) {
+        return new SalariedEmployee(employeeId, monthlySalary);
+    }
+
+    public static SalariedEmployee createSalariedEmployee(String employeeId, Money monthlySalary, List<Absence> absences) {
+        return new SalariedEmployee(employeeId, monthlySalary, absences);
+    }
+
+    public static SalariedEmployee salariedEmployeeWithOneSickAbsence(String employeeId) {
+        Absence sickAbsence = new Absence(employeeId, LocalDate.of(2019, 9, 2), LeaveReason.SICK);
+        return createSalariedEmployeeWithAbsences(employeeId, sickAbsence);
+    }
+
+    public static SalariedEmployee salariedEmployeeWithOnePaidAbsence(String employeeId) {
+        Absence paidAbsence = new Absence(employeeId, LocalDate.of(2019, 9, 2), LeaveReason.MaternityLeave);
+        return createSalariedEmployeeWithAbsences(employeeId, paidAbsence);
+    }
+
+    public static SalariedEmployee salariedEmployeeWithManyAbsences(String employeeId) {
+        Absence sickAbsence = new Absence(employeeId, LocalDate.of(2019, 9, 2), LeaveReason.SICK);
+        Absence casualAbsence = new Absence(employeeId, LocalDate.of(2019, 9, 3), LeaveReason.CasualLeave);
+        Absence paidAbsence = new Absence(employeeId, LocalDate.of(2019, 9, 4), LeaveReason.MaternityLeave);
+        Absence disapprovedAbsence = new Absence(employeeId, LocalDate.of(2019, 9, 5), LeaveReason.DisapprovedLeave);
+
+        return createSalariedEmployeeWithAbsences(employeeId, sickAbsence, casualAbsence, paidAbsence, disapprovedAbsence);
+    }
+
+    private static SalariedEmployee createSalariedEmployeeWithAbsences(String employeeId, Absence... leaves) {
+        List<Absence> absences = new ArrayList<>(Arrays.asList(leaves));
+        Money salaryOfMonth = Money.of("10000.00", Currency.RMB);
+
+        return new SalariedEmployee(employeeId, salaryOfMonth, absences);
     }
 }

@@ -27,8 +27,20 @@ public class Money {
         return value;
     }
 
+    public Money add(Money money) {
+        return new Money(value.add(money.value).setScale(SCALE), currency);
+    }
+
+    public Money subtract(Money money) {
+        return new Money(value.subtract(money.value).setScale(SCALE), currency);
+    }
+
     public Money multiply(double factor) {
         return new Money(value.multiply(BigDecimal.valueOf(factor)).setScale(SCALE, RoundingMode.HALF_UP), currency);
+    }
+
+    public Money divide(int workDaysEachMonth) {
+        return new Money(value.divide(BigDecimal.valueOf(workDaysEachMonth), SCALE, RoundingMode.HALF_UP), currency);
     }
 
     @Override
@@ -51,9 +63,5 @@ public class Money {
     @Override
     public String toString() {
         return currency + " " + value;
-    }
-
-    public Money add(Money money) {
-        return new Money(value.add(money.value).setScale(SCALE), currency);
     }
 }
