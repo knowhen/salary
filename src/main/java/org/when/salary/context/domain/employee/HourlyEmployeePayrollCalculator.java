@@ -2,6 +2,7 @@ package org.when.salary.context.domain.employee;
 
 import org.when.salary.context.domain.DateRange;
 import org.when.salary.context.domain.Payroll;
+import org.when.salary.context.repository.HourlyEmployeeRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,7 +15,7 @@ public class HourlyEmployeePayrollCalculator {
     }
 
     public List<Payroll> execute(DateRange settlementPeriod) {
-        return repository.allEmployeeOf(settlementPeriod).stream()
+        return repository.findAll(settlementPeriod).stream()
                 .map(employee -> employee.payroll(settlementPeriod))
                 .collect(Collectors.toList());
     }

@@ -6,6 +6,7 @@ import org.when.salary.context.domain.Currency;
 import org.when.salary.context.domain.DateRange;
 import org.when.salary.context.domain.Money;
 import org.when.salary.context.domain.Payroll;
+import org.when.salary.context.repository.HourlyEmployeeRepository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,13 +34,13 @@ class HourlyEmployeePayrollCalculatorTest {
     @Test
     public void calculate_payroll_when_no_matched_employee() {
 
-        when(mockRepo.allEmployeeOf(settlementPeriod)).thenReturn(new ArrayList());
+        when(mockRepo.findAll(settlementPeriod)).thenReturn(new ArrayList());
 
         calculator.setRepository(mockRepo);
 
         List<Payroll> payrolls = calculator.execute(settlementPeriod);
 
-        verify(mockRepo, times(1)).allEmployeeOf(settlementPeriod);
+        verify(mockRepo, times(1)).findAll(settlementPeriod);
         assertNotNull(payrolls);
         assertEquals(0, payrolls.size());
     }
@@ -51,7 +52,7 @@ class HourlyEmployeePayrollCalculatorTest {
         HourlyEmployee hourlyEmployee = createHourlyEmployee(employeeId, 8, 8, 8, 8, 8);
         hourlyEmployees.add(hourlyEmployee);
 
-        when(mockRepo.allEmployeeOf(settlementPeriod)).thenReturn(hourlyEmployees);
+        when(mockRepo.findAll(settlementPeriod)).thenReturn(hourlyEmployees);
 
         calculator.setRepository(mockRepo);
 
@@ -59,7 +60,7 @@ class HourlyEmployeePayrollCalculatorTest {
         List<Payroll> payrolls = calculator.execute(settlementPeriod);
 
         //then
-        verify(mockRepo, times(1)).allEmployeeOf(settlementPeriod);
+        verify(mockRepo, times(1)).findAll(settlementPeriod);
         assertNotNull(payrolls);
         assertEquals(1, payrolls.size());
 
@@ -81,14 +82,14 @@ class HourlyEmployeePayrollCalculatorTest {
         HourlyEmployee hourlyEmployee3 = createHourlyEmployee(employeeId3, null);
         hourlyEmployees.add(hourlyEmployee3);
 
-        when(mockRepo.allEmployeeOf(settlementPeriod)).thenReturn(hourlyEmployees);
+        when(mockRepo.findAll(settlementPeriod)).thenReturn(hourlyEmployees);
         calculator.setRepository(mockRepo);
 
         //when
         List<Payroll> payrolls = calculator.execute(settlementPeriod);
 
         //then
-        verify(mockRepo, times(1)).allEmployeeOf(settlementPeriod);
+        verify(mockRepo, times(1)).findAll(settlementPeriod);
         assertNotNull(payrolls);
         assertEquals(3, payrolls.size());
 
