@@ -2,10 +2,7 @@ package org.when.salary.context.domain.employee;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.when.salary.context.domain.Currency;
-import org.when.salary.context.domain.DateRange;
-import org.when.salary.context.domain.Money;
-import org.when.salary.context.domain.Payroll;
+import org.when.salary.context.domain.*;
 import org.when.salary.context.repository.HourlyEmployeeRepository;
 
 import java.time.LocalDate;
@@ -48,7 +45,7 @@ class HourlyEmployeePayrollCalculatorTest {
     @Test
     public void test() {
         //given
-        String employeeId = "emp202312010001";
+        EmployeeId employeeId = EmployeeId.of("emp202312010001");
         HourlyEmployee hourlyEmployee = createHourlyEmployee(employeeId, 8, 8, 8, 8, 8);
         hourlyEmployees.add(hourlyEmployee);
 
@@ -70,15 +67,15 @@ class HourlyEmployeePayrollCalculatorTest {
     @Test
     public void should_calculate_payroll_when_more_than_one_matched_employee_found() {
         //given
-        String employeeId1 = "emp200901011111";
+        EmployeeId employeeId1 = EmployeeId.of("emp200901011111");
         HourlyEmployee hourlyEmployee1 = createHourlyEmployee(employeeId1, 8, 8, 8, 8, 8);
         hourlyEmployees.add(hourlyEmployee1);
 
-        String employeeId2 = "emp200901011112";
+        EmployeeId employeeId2 = EmployeeId.of("emp200901011112");
         HourlyEmployee hourlyEmployee2 = createHourlyEmployee(employeeId2, 9, 7, 10, 10, 8);
         hourlyEmployees.add(hourlyEmployee2);
 
-        String employeeId3 = "emp200901011113";
+        EmployeeId employeeId3 = EmployeeId.of("emp200901011113");
         HourlyEmployee hourlyEmployee3 = createHourlyEmployee(employeeId3, null);
         hourlyEmployees.add(hourlyEmployee3);
 
@@ -98,11 +95,11 @@ class HourlyEmployeePayrollCalculatorTest {
         assertPayroll(employeeId3, payrolls, 2, settlementPeriod, "0.00");
     }
 
-    private void assertPayroll(String employeeId, List<Payroll> payrolls, int index, DateRange settlementPeriod, String payrollAmount) {
+    private void assertPayroll(EmployeeId employeeId, List<Payroll> payrolls, int index, DateRange settlementPeriod, String payrollAmount) {
         Payroll payroll = payrolls.get(index);
         assertEquals(employeeId, payroll.getEmployeeId());
         assertEquals(settlementPeriod.getStartDate(), payroll.startDate());
         assertEquals(settlementPeriod.getEndDate(), payroll.endDate());
-        assertEquals(Money.of(payrollAmount, Currency.RMB), payroll.amount());
+        assertEquals(Salary.of(payrollAmount, Currency.RMB), payroll.amount());
     }
 }

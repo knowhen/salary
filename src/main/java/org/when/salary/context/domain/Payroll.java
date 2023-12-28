@@ -3,19 +3,19 @@ package org.when.salary.context.domain;
 import java.time.LocalDate;
 
 public class Payroll {
-    private String employeeId;
+    private EmployeeId employeeId;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Money amount;
+    private Salary amount;
 
-    public Payroll(String employeeId, LocalDate startDate, LocalDate endDate, Money amount) {
+    public Payroll(EmployeeId employeeId, LocalDate startDate, LocalDate endDate, Salary amount) {
         this.employeeId = employeeId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.amount = amount;
     }
 
-    public String getEmployeeId() {
+    public EmployeeId getEmployeeId() {
         return employeeId;
     }
 
@@ -27,7 +27,7 @@ public class Payroll {
         return endDate;
     }
 
-    public Money amount() {
+    public Salary amount() {
         return amount;
     }
 }

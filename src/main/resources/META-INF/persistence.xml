@@ -7,6 +7,10 @@
     <persistence-unit name="Payroll_JPA" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>org.when.salary.context.domain.Employee</class>
+        <class>org.when.salary.context.domain.employee.HourlyEmployee</class>
+        <class>org.when.salary.context.domain.employee.TimeCard</class>
+        <class>org.when.salary.context.domain.employee.SalariedEmployee</class>
+        <class>org.when.salary.context.domain.employee.Absence</class>
         <properties>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/payroll?serverTimezone=UTC"/>

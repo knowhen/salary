@@ -1,15 +1,21 @@
 package org.when.salary.context.domain.employee;
 
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDate;
 
+@Embeddable
 public class Absence {
-    private String employeeId;
+    @Enumerated(EnumType.STRING)
     private LeaveReason leaveReason;
-    private LocalDate abseceDate;
+    private LocalDate absenceDate;
 
-    public Absence(String employeeId, LocalDate absenceDate, LeaveReason leaveReason) {
-        this.employeeId = employeeId;
-        this.abseceDate = absenceDate;
+    public Absence() {
+    }
+
+    public Absence(LocalDate absenceDate, LeaveReason leaveReason) {
+        this.absenceDate = absenceDate;
         this.leaveReason = leaveReason;
     }
 

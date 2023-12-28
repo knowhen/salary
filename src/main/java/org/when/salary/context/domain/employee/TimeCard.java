@@ -1,14 +1,23 @@
 package org.when.salary.context.domain.employee;
 
+import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "timecards")
 public class TimeCard {
     private static final int MAX_NORMAL_HOURS = 8;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private LocalDate workDay;
-    private Duration workHours;
+    private int workHours;
 
-    public TimeCard(LocalDate data, Duration hours) {
+    public TimeCard() {
+    }
+
+    public TimeCard(LocalDate data, int hours) {
         this.workDay = data;
         this.workHours = hours;
     }
@@ -21,24 +30,21 @@ public class TimeCard {
         this.workDay = workDay;
     }
 
-    public Duration getWorkHours() {
+    public int getWorkHours() {
         return workHours;
     }
 
-    public void setWorkHours(Duration workHours) {
-        this.workHours = workHours;
-    }
 
     public long getOvertimeHours() {
-        return getWorkHours().toHours() - MAX_NORMAL_HOURS;
+        return getWorkHours() - MAX_NORMAL_HOURS;
     }
 
     public boolean isOvertime() {
-        return getWorkHours().toHours() > MAX_NORMAL_HOURS;
+        return getWorkHours() > MAX_NORMAL_HOURS;
     }
 
     public long getNormalHours() {
-        return isOvertime() ? MAX_NORMAL_HOURS : getWorkHours().toHours();
+        return isOvertime() ? MAX_NORMAL_HOURS : getWorkHours();
     }
 
 }

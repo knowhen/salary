@@ -1,10 +1,7 @@
 package org.when.salary.context.domain.employee;
 
 import org.junit.jupiter.api.Test;
-import org.when.salary.context.domain.Currency;
-import org.when.salary.context.domain.DateRange;
-import org.when.salary.context.domain.Money;
-import org.when.salary.context.domain.Payroll;
+import org.when.salary.context.domain.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,8 +12,8 @@ import static org.when.salary.context.domain.employee.EmployeeFixture.createHour
 
 
 public class HourlyEmployeeTest {
-    private final String employeeId = "emp202312010001";
-    private final Money hourlySalary = Money.of("1500", Currency.RMB);
+    private final EmployeeId employeeId = EmployeeId.of("emp202312010001");
+    private final Salary hourlySalary = Salary.of("1500", Currency.RMB);
     private final DateRange dateRange = new DateRange(LocalDate.of(2023, 12, 11), LocalDate.of(2023, 12, 15));
 
     @Test
@@ -28,7 +25,7 @@ public class HourlyEmployeeTest {
         assertNotNull(payroll);
         assertEquals(payroll.startDate(), LocalDate.of(2023, 12, 11));
         assertEquals(payroll.endDate(), LocalDate.of(2023, 12, 15));
-        assertEquals(payroll.amount(), Money.of("60000", Currency.RMB));
+        assertEquals(payroll.amount(), Salary.of("60000", Currency.RMB));
     }
 
     @Test
@@ -40,7 +37,7 @@ public class HourlyEmployeeTest {
         assertNotNull(payroll);
         assertEquals(payroll.startDate(), LocalDate.of(2023, 12, 11));
         assertEquals(payroll.endDate(), LocalDate.of(2023, 12, 15));
-        assertEquals(payroll.amount(), Money.of("69750", Currency.RMB));
+        assertEquals(payroll.amount(), Salary.of("69750", Currency.RMB));
     }
 
     @Test
@@ -52,7 +49,7 @@ public class HourlyEmployeeTest {
         assertNotNull(payroll);
         assertEquals(payroll.startDate(), LocalDate.of(2023, 12, 11));
         assertEquals(payroll.endDate(), LocalDate.of(2023, 12, 15));
-        assertEquals(payroll.amount(), Money.of("0.00", Currency.RMB));
+        assertEquals(payroll.amount(), Salary.of("0.00", Currency.RMB));
     }
 
     @Test
@@ -64,7 +61,7 @@ public class HourlyEmployeeTest {
         assertNotNull(payroll);
         assertEquals(payroll.startDate(), LocalDate.of(2023, 12, 11));
         assertEquals(payroll.endDate(), LocalDate.of(2023, 12, 15));
-        assertEquals(payroll.amount(), Money.of("0.00", Currency.RMB));
+        assertEquals(payroll.amount(), Salary.of("0.00", Currency.RMB));
     }
 
 
