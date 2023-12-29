@@ -1,4 +1,4 @@
-package org.when.salary.context.domain.employee;
+package org.when.salary.context.domain.employee.hourly;
 
 import org.when.salary.context.domain.DateRange;
 import org.when.salary.context.domain.Payroll;

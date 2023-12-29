@@ -32,6 +32,17 @@ public class Employee extends AbstractEntity<EmployeeId> implements AggregateRoo
 
     private LocalDate boardingDate;
 
+    public Employee() {
+    }
+
+    public Employee(EmployeeId employeeId, String name, Email email, EmployeeType employeeType, LocalDate boardingDate) {
+        this.employeeId = employeeId;
+        this.name = name;
+        this.email = email;
+        this.employeeType = employeeType;
+        this.boardingDate = boardingDate;
+    }
+
     @Override
     public EmployeeId id() {
         return employeeId;

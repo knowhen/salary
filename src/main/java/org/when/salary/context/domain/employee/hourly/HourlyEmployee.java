@@ -1,4 +1,4 @@
-package org.when.salary.context.domain.employee;
+package org.when.salary.context.domain.employee.hourly;
 
 import org.hibernate.annotations.DiscriminatorOptions;
 import org.when.salary.context.domain.DateRange;
@@ -24,7 +24,7 @@ public class HourlyEmployee extends AbstractEntity<EmployeeId> implements Aggreg
     private EmployeeId employeeId;
     @Embedded
     private Salary hourlySalary;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "employeeId", nullable = false)
     private List<TimeCard> timeCards = new ArrayList<>();
 
@@ -98,4 +98,12 @@ public class HourlyEmployee extends AbstractEntity<EmployeeId> implements Aggreg
             this.timeCards.add(submittedTimeCard);
         }
     }
+
+    public void remove(TimeCard removedTimeCard) {
+        if (this.timeCards.contains(removedTimeCard)) {
+            this.timeCards.remove(removedTimeCard);
+        }
+//        timeCards.removeIf(card -> card.equals(removedTimeCard));
+    }
+
 }

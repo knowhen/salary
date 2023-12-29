@@ -1,4 +1,4 @@
-package org.when.salary.context.domain.employee;
+package org.when.salary.context.domain.employee.salaried;
 
 public enum LeaveReason {
     SICK(1),

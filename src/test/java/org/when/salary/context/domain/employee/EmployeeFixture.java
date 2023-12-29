@@ -1,8 +1,11 @@
 package org.when.salary.context.domain.employee;
 
-import org.when.salary.context.domain.Currency;
-import org.when.salary.context.domain.EmployeeId;
-import org.when.salary.context.domain.Salary;
+import org.when.salary.context.domain.*;
+import org.when.salary.context.domain.employee.hourly.HourlyEmployee;
+import org.when.salary.context.domain.employee.hourly.TimeCard;
+import org.when.salary.context.domain.employee.salaried.Absence;
+import org.when.salary.context.domain.employee.salaried.LeaveReason;
+import org.when.salary.context.domain.employee.salaried.SalariedEmployee;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -68,5 +71,9 @@ public class EmployeeFixture {
         Salary salaryOfMonth = Salary.of("10000.00", Currency.RMB);
 
         return new SalariedEmployee(employeeId, salaryOfMonth, absences);
+    }
+
+    public static Employee createEmployee(String employeeId, String name, String email, EmployeeType employeeType) {
+        return new Employee(EmployeeId.of(employeeId), name, new Email(email), employeeType, LocalDate.now());
     }
 }

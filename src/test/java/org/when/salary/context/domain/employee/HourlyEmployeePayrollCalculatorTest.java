@@ -3,6 +3,8 @@ package org.when.salary.context.domain.employee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.when.salary.context.domain.*;
+import org.when.salary.context.domain.employee.hourly.HourlyEmployee;
+import org.when.salary.context.domain.employee.hourly.HourlyEmployeePayrollCalculator;
 import org.when.salary.context.repository.HourlyEmployeeRepository;
 
 import java.time.LocalDate;

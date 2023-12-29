@@ -11,21 +11,22 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class Repository<E extends AggregateRoot, ID extends Identity> {
     private Class<E> entityClass;
     private EntityManager entityManager;
+    private TransactionScope transactionScope;
 
     public Repository(Class<E> entityClass, EntityManager entityManager) {
         this.entityClass = entityClass;
         this.entityManager = entityManager;
+        this.transactionScope = new TransactionScope(entityManager);
     }
 
     public Optional<E> findById(ID id) {
-        if (entityManager == null) {
-            throw new InitializeEntityManagerException();
-        }
+        requireNonNullEntityManager();
 
         E root = entityManager.find(entityClass, id);
         if (root == null) {
@@ -33,6 +34,12 @@ public class Repository<E extends AggregateRoot, ID extends Identity> {
         }
         return Optional.of(root);
 
+    }
+
+    private void requireNonNullEntityManager() {
+        if (entityManager == null) {
+            throw new InitializeEntityManagerException();
+        }
     }
 
     public List<E> findAll() {
@@ -55,5 +62,39 @@ public class Repository<E extends AggregateRoot, ID extends Identity> {
 
         TypedQuery<E> typedQuery = entityManager.createQuery(query);
         return typedQuery.getResultList();
+    }
+
+    public void saveOrUpdate(E entity) {
+        requireNonNullEntityManager();
+
+        if (Objects.isNull(entity)) {
+            // todo: log
+            return;
+        }
+
+        if (entityManager.contains(entity)) {
+            entityManager.merge(entity);
+        } else {
+            entityManager.persist(entity);
+        }
+    }
+
+    public void delete(E entity) {
+        requireNonNullEntityManager();
+
+        if (Objects.isNull(entity)) {
+            // todo: log
+            return;
+        }
+
+        if (!entityManager.contains(entity)) {
+            return;
+        }
+
+        entityManager.remove(entity);
+    }
+
+    public void finalize() {
+        entityManager.close();
     }
 }

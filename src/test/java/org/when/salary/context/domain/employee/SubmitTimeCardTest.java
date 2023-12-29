@@ -2,6 +2,8 @@ package org.when.salary.context.domain.employee;
 
 import org.junit.jupiter.api.Test;
 import org.when.salary.context.domain.EmployeeId;
+import org.when.salary.context.domain.employee.hourly.HourlyEmployee;
+import org.when.salary.context.domain.employee.hourly.TimeCard;
 
 import java.time.LocalDate;
 import java.util.List;

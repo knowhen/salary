@@ -2,6 +2,9 @@ package org.when.salary.context.domain.employee;
 
 import org.junit.jupiter.api.Test;
 import org.when.salary.context.domain.*;
+import org.when.salary.context.domain.employee.salaried.Absence;
+import org.when.salary.context.domain.employee.salaried.LeaveReason;
+import org.when.salary.context.domain.employee.salaried.SalariedEmployee;
 
 import java.time.LocalDate;
 import java.time.YearMonth;

@@ -1,7 +1,7 @@
 package org.when.salary.context.repository;
 
 import org.when.salary.context.domain.EmployeeId;
-import org.when.salary.context.domain.employee.HourlyEmployee;
+import org.when.salary.context.domain.employee.hourly.HourlyEmployee;
 
 import java.util.List;
 import java.util.Optional;

@@ -2,10 +2,11 @@ package org.when.salary.context.repository;
 
 import org.junit.jupiter.api.Test;
 import org.when.salary.context.domain.*;
-import org.when.salary.context.domain.employee.Absence;
-import org.when.salary.context.domain.employee.HourlyEmployee;
-import org.when.salary.context.domain.employee.SalariedEmployee;
-import org.when.salary.context.domain.employee.TimeCard;
+import org.when.salary.context.domain.employee.EmployeeFixture;
+import org.when.salary.context.domain.employee.hourly.HourlyEmployee;
+import org.when.salary.context.domain.employee.hourly.TimeCard;
+import org.when.salary.context.domain.employee.salaried.Absence;
+import org.when.salary.context.domain.employee.salaried.SalariedEmployee;
 import org.when.salary.core.persistence.EntityManagers;
 import org.when.salary.core.persistence.Repository;
 
@@ -141,6 +142,24 @@ class RepositoryIntegrationTest {
         );
 
         assertThat(typedEmployees).isNotNull().hasSize(2);
+    }
+
+    @Test
+    public void test_add_and_remove_employee() {
+        String employeeId = "emp200109101000001";
+        Repository<Employee, EmployeeId> repository = createEmployeeRepository();
+        Employee employee = EmployeeFixture.createEmployee(employeeId, "test", "test@test.com", EmployeeType.HOURLY);
+
+        repository.saveOrUpdate(employee);
+
+        Optional<Employee> newEmployee = repository.findById(EmployeeId.of(employeeId));
+
+        assertThat(newEmployee.isPresent()).isTrue();
+
+        repository.delete(employee);
+
+        Optional<Employee> droppedEmployee = repository.findById(EmployeeId.of(employeeId));
+        assertThat(droppedEmployee.isPresent()).isFalse();
     }
 
     private Repository<SalariedEmployee, EmployeeId> createSalariedEmployeeRepository() {
