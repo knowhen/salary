@@ -34,4 +34,19 @@ public class DateRange {
     public LocalDate getEndDate() {
         return endDate;
     }
+
+    public boolean contains(LocalDate date) {
+        if (startDate.equals(date) || endDate.equals(date)) {
+            return true;
+        }
+        return date.isAfter(startDate) && date.isBefore(endDate);
+    }
+
+    public static void main(String[] args) {
+        DateRange range = new DateRange(YearMonth.of(2023, 12));
+        boolean contains1 = range.contains(LocalDate.of(2023, 12, 1));
+        boolean contains2 = range.contains(LocalDate.of(2023, 12, 31));
+        System.out.println(contains1);
+        System.out.println(contains2);
+    }
 }

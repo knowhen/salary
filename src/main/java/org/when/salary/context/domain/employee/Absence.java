@@ -1,5 +1,7 @@
 package org.when.salary.context.domain.employee;
 
+import org.when.salary.context.domain.DateRange;
+
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,5 +27,9 @@ public class Absence {
 
     public double deductionRatio() {
         return leaveReason.deductionRatio();
+    }
+
+    public boolean withInRange(DateRange range) {
+        return range.contains(absenceDate);
     }
 }

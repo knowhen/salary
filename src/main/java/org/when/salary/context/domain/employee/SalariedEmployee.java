@@ -43,6 +43,7 @@ public class SalariedEmployee extends AbstractEntity<EmployeeId> implements Aggr
     public Payroll payroll(DateRange settlementPeriod) {
         Salary dailySalary = monthlySalary.divide(WORK_DAYS_EACH_MONTH);
         Salary deduction = absences.stream()
+                .filter(absence -> absence.withInRange(settlementPeriod))
                 .filter(absence -> !absence.withSalary())
                 .map(absence -> dailySalary.multiply(absence.deductionRatio()))
                 .reduce(Salary.ZERO, Salary::add);

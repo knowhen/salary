@@ -1,7 +1,8 @@
 package org.when.salary.context.domain.employee;
 
+import org.when.salary.context.domain.DateRange;
+
 import javax.persistence.*;
-import java.time.Duration;
 import java.time.LocalDate;
 
 @Entity
@@ -45,6 +46,10 @@ public class TimeCard {
 
     public long getNormalHours() {
         return isOvertime() ? MAX_NORMAL_HOURS : getWorkHours();
+    }
+
+    public boolean withInRange(DateRange range) {
+        return range.contains(workDay);
     }
 
 }

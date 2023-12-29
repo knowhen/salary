@@ -107,11 +107,40 @@ class RepositoryIntegrationTest {
     public void should_get_all_entities_by_criteria() {
         Repository<Employee, EmployeeId> repository = createEmployeeRepository();
 
-        List<Employee> hourlyEmployees = repository.findBy((builder, root) ->
+        List<Employee> hourlyEmployees = repository.findBy((builder, query, root) ->
                 builder.equal(root.get("employeeType"), EmployeeType.HOURLY)
         );
 
         assertThat(hourlyEmployees).isNotNull().hasSize(2);
+    }
+
+    @Test
+    public void test_find_all_hourly_employees() {
+        Repository<HourlyEmployee, EmployeeId> repository = createHourlyEmployeeRepository();
+
+        List<HourlyEmployee> hourlyEmployees = repository.findAll();
+
+        assertThat(hourlyEmployees).isNotNull().hasSize(2);
+    }
+
+    @Test
+    public void test_find_all_salaried_employees() {
+        Repository<SalariedEmployee, EmployeeId> repository = createSalariedEmployeeRepository();
+
+        List<SalariedEmployee> salariedEmployees = repository.findAll();
+
+        assertThat(salariedEmployees).isNotNull().hasSize(1);
+    }
+
+    @Test
+    public void test_find_all_employees_by_type() {
+        Repository<Employee, EmployeeId> repository = createEmployeeRepository();
+
+        List<Employee> typedEmployees = repository.findBy((builder, query, root) ->
+                builder.equal(root.get("employeeType"), EmployeeType.HOURLY)
+        );
+
+        assertThat(typedEmployees).isNotNull().hasSize(2);
     }
 
     private Repository<SalariedEmployee, EmployeeId> createSalariedEmployeeRepository() {

@@ -50,7 +50,7 @@ public class Repository<E extends AggregateRoot, ID extends Identity> {
         CriteriaQuery<E> query = criteriaBuilder.createQuery(entityClass);
         Root<E> root = query.from(entityClass);
 
-        Predicate predicate = specification.toPredicate(criteriaBuilder, root);
+        Predicate predicate = specification.toPredicate(criteriaBuilder, query, root);
         query.where(new Predicate[]{predicate});
 
         TypedQuery<E> typedQuery = entityManager.createQuery(query);
