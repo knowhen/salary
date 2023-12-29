@@ -4,7 +4,6 @@ import org.when.salary.context.domain.Currency;
 import org.when.salary.context.domain.EmployeeId;
 import org.when.salary.context.domain.Salary;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +20,7 @@ public class EmployeeFixture {
         return new HourlyEmployee(employeeId, createTimeCards(workHours1, workHours2, workHours3, workHours4, workHours5), hourlySalary);
     }
 
-    private static List<TimeCard> createTimeCards(int workHours1, int workHours2, int workHours3, int workHours4, int workHours5) {
+    public static List<TimeCard> createTimeCards(int workHours1, int workHours2, int workHours3, int workHours4, int workHours5) {
         TimeCard timeCard1 = new TimeCard(LocalDate.of(2023, 12, 11), workHours1);
         TimeCard timeCard2 = new TimeCard(LocalDate.of(2023, 12, 12), workHours2);
         TimeCard timeCard3 = new TimeCard(LocalDate.of(2023, 12, 13), workHours3);

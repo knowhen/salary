@@ -4,6 +4,7 @@ import org.when.salary.context.domain.DateRange;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "timecards")
@@ -52,4 +53,16 @@ public class TimeCard {
         return range.contains(workDay);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TimeCard)) return false;
+        TimeCard timeCard = (TimeCard) o;
+        return Objects.equals(workDay, timeCard.workDay);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(workDay);
+    }
 }

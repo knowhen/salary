@@ -3,19 +3,20 @@ package org.when.salary.context.domain.employee;
 import org.hibernate.annotations.DiscriminatorOptions;
 import org.when.salary.context.domain.DateRange;
 import org.when.salary.context.domain.EmployeeId;
-import org.when.salary.context.domain.Salary;
 import org.when.salary.context.domain.Payroll;
+import org.when.salary.context.domain.Salary;
 import org.when.salary.core.domain.AbstractEntity;
 import org.when.salary.core.domain.AggregateRoot;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name="employees")
+@Table(name = "employees")
 @DiscriminatorColumn(name = "employeeType", discriminatorType = DiscriminatorType.INTEGER)
-@DiscriminatorOptions(force=true)
+@DiscriminatorOptions(force = true)
 @DiscriminatorValue(value = "0")
 public class HourlyEmployee extends AbstractEntity<EmployeeId> implements AggregateRoot<HourlyEmployee> {
     private static final double OVERTIME_FACTOR = 1.5;
@@ -25,14 +26,16 @@ public class HourlyEmployee extends AbstractEntity<EmployeeId> implements Aggreg
     private Salary hourlySalary;
     @OneToMany
     @JoinColumn(name = "employeeId", nullable = false)
-    private List<TimeCard> timeCards;
+    private List<TimeCard> timeCards = new ArrayList<>();
 
     public HourlyEmployee() {
     }
 
     public HourlyEmployee(EmployeeId employeeId, List<TimeCard> timeCards, Salary hourlySalary) {
         this.employeeId = employeeId;
-        this.timeCards = timeCards;
+        if (Objects.nonNull(timeCards)) {
+            this.timeCards = timeCards;
+        }
         this.hourlySalary = hourlySalary;
     }
 
@@ -82,5 +85,17 @@ public class HourlyEmployee extends AbstractEntity<EmployeeId> implements Aggreg
     @Override
     public HourlyEmployee root() {
         return this;
+    }
+
+    public void submit(List<TimeCard> timeCards) {
+        for (TimeCard timeCard : timeCards) {
+            submit(timeCard);
+        }
+    }
+
+    public void submit(TimeCard submittedTimeCard) {
+        if (!this.timeCards.contains(submittedTimeCard)) {
+            this.timeCards.add(submittedTimeCard);
+        }
     }
 }
