@@ -15,7 +15,7 @@ public class HourlyEmployeePayrollCalculator {
     }
 
     public List<Payroll> execute(DateRange settlementPeriod) {
-        return repository.findAll(settlementPeriod).stream()
+        return repository.findAll().stream()
                 .map(employee -> employee.payroll(settlementPeriod))
                 .collect(Collectors.toList());
     }

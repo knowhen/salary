@@ -31,13 +31,13 @@ class HourlyEmployeePayrollCalculatorTest {
     @Test
     public void calculate_payroll_when_no_matched_employee() {
 
-        when(mockRepo.findAll(settlementPeriod)).thenReturn(new ArrayList());
+        when(mockRepo.findAll()).thenReturn(new ArrayList());
 
         calculator.setRepository(mockRepo);
 
         List<Payroll> payrolls = calculator.execute(settlementPeriod);
 
-        verify(mockRepo, times(1)).findAll(settlementPeriod);
+        verify(mockRepo, times(1)).findAll();
         assertNotNull(payrolls);
         assertEquals(0, payrolls.size());
     }
@@ -49,7 +49,7 @@ class HourlyEmployeePayrollCalculatorTest {
         HourlyEmployee hourlyEmployee = createHourlyEmployee(employeeId, 8, 8, 8, 8, 8);
         hourlyEmployees.add(hourlyEmployee);
 
-        when(mockRepo.findAll(settlementPeriod)).thenReturn(hourlyEmployees);
+        when(mockRepo.findAll()).thenReturn(hourlyEmployees);
 
         calculator.setRepository(mockRepo);
 
@@ -57,7 +57,7 @@ class HourlyEmployeePayrollCalculatorTest {
         List<Payroll> payrolls = calculator.execute(settlementPeriod);
 
         //then
-        verify(mockRepo, times(1)).findAll(settlementPeriod);
+        verify(mockRepo, times(1)).findAll();
         assertNotNull(payrolls);
         assertEquals(1, payrolls.size());
 
@@ -79,14 +79,14 @@ class HourlyEmployeePayrollCalculatorTest {
         HourlyEmployee hourlyEmployee3 = createHourlyEmployee(employeeId3, null);
         hourlyEmployees.add(hourlyEmployee3);
 
-        when(mockRepo.findAll(settlementPeriod)).thenReturn(hourlyEmployees);
+        when(mockRepo.findAll()).thenReturn(hourlyEmployees);
         calculator.setRepository(mockRepo);
 
         //when
         List<Payroll> payrolls = calculator.execute(settlementPeriod);
 
         //then
-        verify(mockRepo, times(1)).findAll(settlementPeriod);
+        verify(mockRepo, times(1)).findAll();
         assertNotNull(payrolls);
         assertEquals(3, payrolls.size());
 
