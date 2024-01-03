@@ -1,7 +1,10 @@
 package org.when.salary.context.domain.employee;
 
 import org.junit.jupiter.api.Test;
-import org.when.salary.context.domain.*;
+import org.when.salary.context.domain.Currency;
+import org.when.salary.context.domain.DateRange;
+import org.when.salary.context.domain.Payroll;
+import org.when.salary.context.domain.Salary;
 import org.when.salary.context.domain.employee.salaried.Absence;
 import org.when.salary.context.domain.employee.salaried.LeaveReason;
 import org.when.salary.context.domain.employee.salaried.SalariedEmployee;
@@ -15,13 +18,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SalariedEmployeeTest {
-    private final EmployeeId employeeId = EmployeeId.of("emp202312010001");
+    private final String employeeId = "emp202312010001";
     private DateRange settlementPeriod = new DateRange(YearMonth.of(2023, 12));
 
     @Test
     public void return_monthly_salary_when_employee_present_at_duty_every_day() {
 
-        SalariedEmployee employee = EmployeeFixture.createSalariedEmployee(employeeId, Salary.of("10000", Currency.RMB));
+        SalariedEmployee employee = EmployeeFixture.createSalariedEmployee(employeeId, 10000);
 
         Payroll payroll = employee.payroll(settlementPeriod);
 
@@ -64,9 +67,9 @@ public class SalariedEmployeeTest {
                 expectedAmount);
     }
 
-    private static void assertPayroll(Payroll payroll, EmployeeId employeeId, LocalDate startDate, LocalDate endDate, Salary amount) {
+    private static void assertPayroll(Payroll payroll, String employeeId, LocalDate startDate, LocalDate endDate, Salary amount) {
         assertNotNull(payroll);
-        assertEquals(employeeId, payroll.getEmployeeId());
+        assertEquals(employeeId, payroll.getEmployeeId().value());
         assertEquals(startDate, payroll.startDate());
         assertEquals(endDate, payroll.endDate());
         assertEquals(amount, payroll.amount());

@@ -22,7 +22,7 @@ public class Salary {
     }
 
     public Salary(BigDecimal value, Currency currency) {
-        this.value = value.setScale(SCALE);
+        this.value = value.setScale(SCALE, RoundingMode.HALF_UP);
         this.currency = currency;
     }
 
@@ -31,6 +31,10 @@ public class Salary {
     }
 
     public static Salary of(String value, Currency currency) {
+        return new Salary(new BigDecimal(value), currency);
+    }
+
+    public static Salary of(double value, Currency currency) {
         return new Salary(new BigDecimal(value), currency);
     }
 

@@ -39,25 +39,25 @@ public class EmployeeFixture {
         return timeCards;
     }
 
-    public static SalariedEmployee createSalariedEmployee(EmployeeId employeeId, Salary monthlySalary) {
-        return new SalariedEmployee(employeeId, monthlySalary);
+    public static SalariedEmployee createSalariedEmployee(String employeeId, double monthlySalary) {
+        return new SalariedEmployee(EmployeeId.of(employeeId), Salary.of(monthlySalary, Currency.RMB));
     }
 
-    public static SalariedEmployee createSalariedEmployee(EmployeeId employeeId, Salary monthlySalary, List<Absence> absences) {
-        return new SalariedEmployee(employeeId, monthlySalary, absences);
+    public static SalariedEmployee createSalariedEmployee(String employeeId, Salary monthlySalary, List<Absence> absences) {
+        return new SalariedEmployee(EmployeeId.of(employeeId), monthlySalary, absences);
     }
 
-    public static SalariedEmployee salariedEmployeeWithOneSickAbsence(EmployeeId employeeId) {
+    public static SalariedEmployee salariedEmployeeWithOneSickAbsence(String employeeId) {
         Absence sickAbsence = new Absence(LocalDate.of(2019, 9, 2), LeaveReason.SICK);
         return createSalariedEmployeeWithAbsences(employeeId, sickAbsence);
     }
 
-    public static SalariedEmployee salariedEmployeeWithOnePaidAbsence(EmployeeId employeeId) {
+    public static SalariedEmployee salariedEmployeeWithOnePaidAbsence(String employeeId) {
         Absence paidAbsence = new Absence(LocalDate.of(2019, 9, 2), LeaveReason.MaternityLeave);
         return createSalariedEmployeeWithAbsences(employeeId, paidAbsence);
     }
 
-    public static SalariedEmployee salariedEmployeeWithManyAbsences(EmployeeId employeeId) {
+    public static SalariedEmployee salariedEmployeeWithManyAbsences(String employeeId) {
         Absence sickAbsence = new Absence(LocalDate.of(2019, 9, 2), LeaveReason.SICK);
         Absence casualAbsence = new Absence(LocalDate.of(2019, 9, 3), LeaveReason.CasualLeave);
         Absence paidAbsence = new Absence(LocalDate.of(2019, 9, 4), LeaveReason.MaternityLeave);
@@ -71,6 +71,13 @@ public class EmployeeFixture {
         Salary salaryOfMonth = Salary.of("10000.00", Currency.RMB);
 
         return new SalariedEmployee(employeeId, salaryOfMonth, absences);
+    }
+
+    private static SalariedEmployee createSalariedEmployeeWithAbsences(String employeeId, Absence... leaves) {
+        List<Absence> absences = new ArrayList<>(Arrays.asList(leaves));
+        Salary salaryOfMonth = Salary.of("10000.00", Currency.RMB);
+
+        return new SalariedEmployee(EmployeeId.of(employeeId), salaryOfMonth, absences);
     }
 
     public static Employee createEmployee(String employeeId, String name, String email, EmployeeType employeeType) {
