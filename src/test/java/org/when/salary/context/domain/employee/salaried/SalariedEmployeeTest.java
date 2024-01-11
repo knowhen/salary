@@ -1,13 +1,11 @@
-package org.when.salary.context.domain.employee;
+package org.when.salary.context.domain.employee.salaried;
 
 import org.junit.jupiter.api.Test;
 import org.when.salary.context.domain.Currency;
 import org.when.salary.context.domain.DateRange;
 import org.when.salary.context.domain.Payroll;
 import org.when.salary.context.domain.Salary;
-import org.when.salary.context.domain.employee.salaried.Absence;
-import org.when.salary.context.domain.employee.salaried.LeaveReason;
-import org.when.salary.context.domain.employee.salaried.SalariedEmployee;
+import org.when.salary.context.domain.employee.EmployeeFixture;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -19,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SalariedEmployeeTest {
     private final String employeeId = "emp202312010001";
-    private DateRange settlementPeriod = new DateRange(YearMonth.of(2023, 12));
+    private final DateRange settlementPeriod = new DateRange(YearMonth.of(2023, 12));
 
     @Test
     public void return_monthly_salary_when_employee_present_at_duty_every_day() {

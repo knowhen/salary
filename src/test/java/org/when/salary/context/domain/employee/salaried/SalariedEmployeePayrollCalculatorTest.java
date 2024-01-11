@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.when.salary.context.domain.DateRange;
 import org.when.salary.context.domain.Payroll;
-import org.when.salary.context.domain.Salary;
+import org.when.salary.context.domain.PayrollCalculatorTest;
 import org.when.salary.context.domain.employee.EmployeeFixture;
 import org.when.salary.context.repository.SalariedEmployeeRepository;
 
@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 import static org.when.salary.context.domain.employee.EmployeeFixture.createSalariedEmployee;
 
-class SalariedEmployeePayrollCalculatorTest {
+class SalariedEmployeePayrollCalculatorTest extends PayrollCalculatorTest {
     private DateRange settlementPeriod;
     private SalariedEmployeeRepository mockRepository;
     private List<SalariedEmployee> salariedEmployees;
@@ -96,11 +96,4 @@ class SalariedEmployeePayrollCalculatorTest {
         assertPayroll(employeeId3, payrolls, 2, settlementPeriod, 8000.00);
     }
 
-    private void assertPayroll(String employeeId, List<Payroll> payrolls, int index, DateRange settlementPeriod, double payrollAmount) {
-        Payroll payroll = payrolls.get(index);
-        assertThat(payroll.getEmployeeId().value()).isEqualTo(employeeId);
-        assertThat(payroll.startDate()).isEqualTo(settlementPeriod.getStartDate());
-        assertThat(payroll.endDate()).isEqualTo(settlementPeriod.getEndDate());
-        assertThat(payroll.amount()).isEqualTo(Salary.of(payrollAmount));
-    }
 }

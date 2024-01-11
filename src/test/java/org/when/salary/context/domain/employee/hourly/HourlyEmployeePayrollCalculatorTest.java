@@ -1,10 +1,11 @@
-package org.when.salary.context.domain.employee;
+package org.when.salary.context.domain.employee.hourly;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.when.salary.context.domain.*;
-import org.when.salary.context.domain.employee.hourly.HourlyEmployee;
-import org.when.salary.context.domain.employee.hourly.HourlyEmployeePayrollCalculator;
+import org.when.salary.context.domain.DateRange;
+import org.when.salary.context.domain.EmployeeId;
+import org.when.salary.context.domain.Payroll;
+import org.when.salary.context.domain.PayrollCalculatorTest;
 import org.when.salary.context.repository.HourlyEmployeeRepository;
 
 import java.time.LocalDate;
@@ -16,14 +17,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 import static org.when.salary.context.domain.employee.EmployeeFixture.createHourlyEmployee;
 
-class HourlyEmployeePayrollCalculatorTest {
+class HourlyEmployeePayrollCalculatorTest extends PayrollCalculatorTest {
     private DateRange settlementPeriod;
     private HourlyEmployeeRepository mockRepo;
     private ArrayList<HourlyEmployee> hourlyEmployees;
     private HourlyEmployeePayrollCalculator calculator;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         settlementPeriod = new DateRange(LocalDate.of(2023, 12, 11), LocalDate.of(2023, 12, 15));
         mockRepo = mock(HourlyEmployeeRepository.class);
         hourlyEmployees = new ArrayList<>();
@@ -63,7 +64,7 @@ class HourlyEmployeePayrollCalculatorTest {
         assertNotNull(payrolls);
         assertEquals(1, payrolls.size());
 
-        assertPayroll(employeeId, payrolls, 0, settlementPeriod, "60000");
+        assertPayroll(employeeId.value(), payrolls, 0, settlementPeriod, 60000);
     }
 
     @Test
@@ -92,16 +93,9 @@ class HourlyEmployeePayrollCalculatorTest {
         assertNotNull(payrolls);
         assertEquals(3, payrolls.size());
 
-        assertPayroll(employeeId1, payrolls, 0, settlementPeriod, "60000.00");
-        assertPayroll(employeeId2, payrolls, 1, settlementPeriod, "69750.00");
-        assertPayroll(employeeId3, payrolls, 2, settlementPeriod, "0.00");
+        assertPayroll(employeeId1.value(), payrolls, 0, settlementPeriod, 60000.00);
+        assertPayroll(employeeId2.value(), payrolls, 1, settlementPeriod, 69750.00);
+        assertPayroll(employeeId3.value(), payrolls, 2, settlementPeriod, 0.00);
     }
 
-    private void assertPayroll(EmployeeId employeeId, List<Payroll> payrolls, int index, DateRange settlementPeriod, String payrollAmount) {
-        Payroll payroll = payrolls.get(index);
-        assertEquals(employeeId, payroll.getEmployeeId());
-        assertEquals(settlementPeriod.getStartDate(), payroll.startDate());
-        assertEquals(settlementPeriod.getEndDate(), payroll.endDate());
-        assertEquals(Salary.of(payrollAmount, Currency.RMB), payroll.amount());
-    }
 }

@@ -1,8 +1,7 @@
-package org.when.salary.context.domain.employee;
+package org.when.salary.context.domain.employee.hourly;
 
 import org.junit.jupiter.api.Test;
 import org.when.salary.context.domain.*;
-import org.when.salary.context.domain.employee.hourly.HourlyEmployee;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import static org.when.salary.context.domain.employee.EmployeeFixture.createHour
 
 public class HourlyEmployeeTest {
     private final EmployeeId employeeId = EmployeeId.of("emp202312010001");
-    private final Salary hourlySalary = Salary.of("1500", Currency.RMB);
     private final DateRange dateRange = new DateRange(LocalDate.of(2023, 12, 11), LocalDate.of(2023, 12, 15));
 
     @Test
