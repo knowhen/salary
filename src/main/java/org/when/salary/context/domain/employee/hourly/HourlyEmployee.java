@@ -1,10 +1,7 @@
 package org.when.salary.context.domain.employee.hourly;
 
 import org.hibernate.annotations.DiscriminatorOptions;
-import org.when.salary.context.domain.DateRange;
-import org.when.salary.context.domain.EmployeeId;
-import org.when.salary.context.domain.Payroll;
-import org.when.salary.context.domain.Salary;
+import org.when.salary.context.domain.*;
 import org.when.salary.core.domain.AbstractEntity;
 import org.when.salary.core.domain.AggregateRoot;
 
@@ -18,7 +15,7 @@ import java.util.Objects;
 @DiscriminatorColumn(name = "employeeType", discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorOptions(force = true)
 @DiscriminatorValue(value = "0")
-public class HourlyEmployee extends AbstractEntity<EmployeeId> implements AggregateRoot<HourlyEmployee> {
+public class HourlyEmployee extends AbstractEntity<EmployeeId> implements AggregateRoot<HourlyEmployee>, Payable {
     private static final double OVERTIME_FACTOR = 1.5;
     @EmbeddedId
     private EmployeeId employeeId;
@@ -39,6 +36,7 @@ public class HourlyEmployee extends AbstractEntity<EmployeeId> implements Aggreg
         this.hourlySalary = hourlySalary;
     }
 
+    @Override
     public Payroll payroll(DateRange dateRange) {
         if (Objects.isNull(timeCards) || timeCards.isEmpty()) {
             return new Payroll(employeeId, dateRange.getStartDate(), dateRange.getEndDate(), Salary.ZERO);
@@ -61,19 +59,12 @@ public class HourlyEmployee extends AbstractEntity<EmployeeId> implements Aggreg
     }
 
     private Salary calculateOvertimeSalary(DateRange dateRange) {
-        Long overtimeHours = timeCards.stream()
-                .filter(timeCard -> timeCard.withInRange(dateRange))
-                .filter(TimeCard::isOvertime)
-                .map(TimeCard::getOvertimeHours)
-                .reduce(0L, Long::sum);
+        Long overtimeHours = timeCards.stream().filter(timeCard -> timeCard.withInRange(dateRange)).filter(TimeCard::isOvertime).map(TimeCard::getOvertimeHours).reduce(0L, Long::sum);
         return hourlySalary.multiply(overtimeHours).multiply(OVERTIME_FACTOR);
     }
 
     private Salary calculateNormalSalary(DateRange dateRange) {
-        Long normalHours = timeCards.stream()
-                .filter(timeCard -> timeCard.withInRange(dateRange))
-                .map(TimeCard::getNormalHours)
-                .reduce(0L, Long::sum);
+        Long normalHours = timeCards.stream().filter(timeCard -> timeCard.withInRange(dateRange)).map(TimeCard::getNormalHours).reduce(0L, Long::sum);
         return hourlySalary.multiply(normalHours);
     }
 

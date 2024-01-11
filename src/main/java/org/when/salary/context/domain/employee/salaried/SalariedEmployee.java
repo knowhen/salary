@@ -1,10 +1,7 @@
 package org.when.salary.context.domain.employee.salaried;
 
 import org.hibernate.annotations.DiscriminatorOptions;
-import org.when.salary.context.domain.DateRange;
-import org.when.salary.context.domain.EmployeeId;
-import org.when.salary.context.domain.Payroll;
-import org.when.salary.context.domain.Salary;
+import org.when.salary.context.domain.*;
 import org.when.salary.core.domain.AbstractEntity;
 import org.when.salary.core.domain.AggregateRoot;
 
@@ -15,9 +12,9 @@ import java.util.List;
 @Entity
 @Table(name = "employees")
 @DiscriminatorColumn(name = "employeeType", discriminatorType = DiscriminatorType.INTEGER)
-@DiscriminatorOptions(force=true)
+@DiscriminatorOptions(force = true)
 @DiscriminatorValue(value = "1")
-public class SalariedEmployee extends AbstractEntity<EmployeeId> implements AggregateRoot<SalariedEmployee> {
+public class SalariedEmployee extends AbstractEntity<EmployeeId> implements AggregateRoot<SalariedEmployee>, Payable {
     private static final int WORK_DAYS_EACH_MONTH = 22;
     @EmbeddedId
     private EmployeeId employeeId;
@@ -40,6 +37,7 @@ public class SalariedEmployee extends AbstractEntity<EmployeeId> implements Aggr
         this.absences = absences;
     }
 
+    @Override
     public Payroll payroll(DateRange settlementPeriod) {
         Salary dailySalary = monthlySalary.divide(WORK_DAYS_EACH_MONTH);
         Salary deduction = absences.stream()
