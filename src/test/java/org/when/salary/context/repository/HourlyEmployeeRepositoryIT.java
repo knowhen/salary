@@ -2,11 +2,12 @@ package org.when.salary.context.repository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.when.salary.context.domain.EmployeeId;
-import org.when.salary.context.domain.employee.hourly.HourlyEmployee;
-import org.when.salary.context.domain.employee.hourly.TimeCard;
+import org.when.salary.employee.domain.EmployeeId;
+import org.when.salary.payroll.domain.hourly.HourlyEmployee;
+import org.when.salary.payroll.domain.hourly.TimeCard;
 import org.when.salary.core.persistence.Repository;
 import org.when.salary.fixture.EntityManagerFixture;
+import org.when.salary.payroll.repository.HourlyEmployeeJpaRepository;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;

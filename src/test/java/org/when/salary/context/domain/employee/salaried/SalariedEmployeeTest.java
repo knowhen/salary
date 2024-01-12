@@ -1,11 +1,14 @@
 package org.when.salary.context.domain.employee.salaried;
 
 import org.junit.jupiter.api.Test;
-import org.when.salary.context.domain.Currency;
-import org.when.salary.context.domain.DateRange;
-import org.when.salary.context.domain.Payroll;
-import org.when.salary.context.domain.Salary;
+import org.when.salary.payroll.domain.Currency;
+import org.when.salary.payroll.domain.DateRange;
+import org.when.salary.payroll.domain.Payroll;
+import org.when.salary.payroll.domain.Salary;
 import org.when.salary.context.domain.employee.EmployeeFixture;
+import org.when.salary.payroll.domain.salaried.Absence;
+import org.when.salary.payroll.domain.salaried.LeaveReason;
+import org.when.salary.payroll.domain.salaried.SalariedEmployee;
 
 import java.time.LocalDate;
 import java.time.YearMonth;

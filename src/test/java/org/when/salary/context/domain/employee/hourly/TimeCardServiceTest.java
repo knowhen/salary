@@ -1,9 +1,12 @@
 package org.when.salary.context.domain.employee.hourly;
 
 import org.junit.jupiter.api.Test;
-import org.when.salary.context.domain.EmployeeId;
+import org.when.salary.employee.domain.EmployeeId;
 import org.when.salary.context.domain.employee.EmployeeFixture;
-import org.when.salary.context.repository.HourlyEmployeeRepository;
+import org.when.salary.payroll.repository.HourlyEmployeeRepository;
+import org.when.salary.payroll.domain.hourly.HourlyEmployee;
+import org.when.salary.payroll.domain.hourly.TimeCard;
+import org.when.salary.payroll.domain.hourly.TimeCardService;
 
 import java.time.LocalDate;
 import java.util.Optional;

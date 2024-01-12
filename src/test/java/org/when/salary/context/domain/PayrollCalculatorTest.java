@@ -1,5 +1,9 @@
 package org.when.salary.context.domain;
 
+import org.when.salary.payroll.domain.DateRange;
+import org.when.salary.payroll.domain.Payroll;
+import org.when.salary.payroll.domain.Salary;
+
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;

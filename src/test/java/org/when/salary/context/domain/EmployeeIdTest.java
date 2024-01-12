@@ -2,6 +2,7 @@ package org.when.salary.context.domain;
 
 import org.junit.jupiter.api.Test;
 import org.when.salary.core.domain.Identity;
+import org.when.salary.employee.domain.EmployeeId;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

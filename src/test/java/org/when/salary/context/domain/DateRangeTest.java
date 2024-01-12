@@ -1,6 +1,7 @@
 package org.when.salary.context.domain;
 
 import org.junit.jupiter.api.Test;
+import org.when.salary.payroll.domain.DateRange;
 
 import java.time.LocalDate;
 

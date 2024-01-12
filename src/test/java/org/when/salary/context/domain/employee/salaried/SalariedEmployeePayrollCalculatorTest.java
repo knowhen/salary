@@ -2,11 +2,13 @@ package org.when.salary.context.domain.employee.salaried;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.when.salary.context.domain.DateRange;
-import org.when.salary.context.domain.Payroll;
+import org.when.salary.payroll.domain.DateRange;
+import org.when.salary.payroll.domain.Payroll;
 import org.when.salary.context.domain.PayrollCalculatorTest;
 import org.when.salary.context.domain.employee.EmployeeFixture;
-import org.when.salary.context.repository.SalariedEmployeeRepository;
+import org.when.salary.payroll.repository.SalariedEmployeeRepository;
+import org.when.salary.payroll.domain.salaried.SalariedEmployee;
+import org.when.salary.payroll.domain.salaried.SalariedEmployeePayrollCalculator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

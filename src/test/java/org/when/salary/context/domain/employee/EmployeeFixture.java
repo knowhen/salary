@@ -1,11 +1,16 @@
 package org.when.salary.context.domain.employee;
 
-import org.when.salary.context.domain.*;
-import org.when.salary.context.domain.employee.hourly.HourlyEmployee;
-import org.when.salary.context.domain.employee.hourly.TimeCard;
-import org.when.salary.context.domain.employee.salaried.Absence;
-import org.when.salary.context.domain.employee.salaried.LeaveReason;
-import org.when.salary.context.domain.employee.salaried.SalariedEmployee;
+import org.when.salary.payroll.domain.Currency;
+import org.when.salary.payroll.domain.Salary;
+import org.when.salary.payroll.domain.hourly.HourlyEmployee;
+import org.when.salary.payroll.domain.hourly.TimeCard;
+import org.when.salary.payroll.domain.salaried.Absence;
+import org.when.salary.payroll.domain.salaried.LeaveReason;
+import org.when.salary.payroll.domain.salaried.SalariedEmployee;
+import org.when.salary.employee.domain.Email;
+import org.when.salary.employee.domain.Employee;
+import org.when.salary.employee.domain.EmployeeId;
+import org.when.salary.employee.domain.EmployeeType;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

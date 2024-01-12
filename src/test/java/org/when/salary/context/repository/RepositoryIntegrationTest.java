@@ -1,14 +1,15 @@
 package org.when.salary.context.repository;
 
 import org.junit.jupiter.api.Test;
-import org.when.salary.context.domain.*;
 import org.when.salary.context.domain.employee.EmployeeFixture;
-import org.when.salary.context.domain.employee.hourly.HourlyEmployee;
-import org.when.salary.context.domain.employee.hourly.TimeCard;
-import org.when.salary.context.domain.employee.salaried.Absence;
-import org.when.salary.context.domain.employee.salaried.SalariedEmployee;
+import org.when.salary.payroll.domain.Salary;
+import org.when.salary.payroll.domain.hourly.HourlyEmployee;
+import org.when.salary.payroll.domain.hourly.TimeCard;
+import org.when.salary.payroll.domain.salaried.Absence;
+import org.when.salary.payroll.domain.salaried.SalariedEmployee;
 import org.when.salary.core.persistence.EntityManagers;
 import org.when.salary.core.persistence.Repository;
+import org.when.salary.employee.domain.*;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package org.when.salary.fixture;
 
-import org.when.salary.context.domain.employee.salaried.ClockInRecord;
-import org.when.salary.context.domain.employee.salaried.WorkHour;
+import org.when.salary.payroll.domain.salaried.ClockInRecord;
+import org.when.salary.payroll.domain.salaried.WorkHour;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

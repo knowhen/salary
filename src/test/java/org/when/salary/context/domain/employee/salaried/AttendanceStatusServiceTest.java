@@ -3,6 +3,7 @@ package org.when.salary.context.domain.employee.salaried;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.when.salary.fixture.AttendanceFixture;
+import org.when.salary.payroll.domain.salaried.*;
 
 import java.time.LocalDate;
 import java.util.Optional;
